@@ -26,12 +26,12 @@ public class UserController {
 
     // Get methods
 
-    @GetMapping
+    @GetMapping("/allUsers")
     public List<User> findAll() {
         return userService.findAll();
     }
 
-    @GetMapping("/findUser")
+    @GetMapping("/user")
     public User findByEmail(@RequestParam("email") String email) {
         return userService.findByEmail(email);
     }
@@ -73,12 +73,12 @@ public class UserController {
     }
 
     // Delete methods
-    @DeleteMapping("/deleteAll")
+    @DeleteMapping("/deleteUsers")
     public void deleteAll() {
         userService.deleteAll();
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/deleteUser")
     public void deleteByEmail(@RequestParam("email") String email) {
         userService.deleteByEmail(email);
         ;

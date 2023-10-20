@@ -22,18 +22,18 @@ public class RestaurantController {
     private RestaurantService restaurantService;
 
     // Get methods
-    @GetMapping
+    @GetMapping("/allRestaurants")
     public List<Restaurant> findAll() {
         return restaurantService.findAll();
     }
 
-    @GetMapping("/findRestaurant")
+    @GetMapping("/restaurant")
     public Restaurant findByName(@RequestParam("name") String name) {
         return restaurantService.findByName(name);
     }
 
     // Post methods
-    @PostMapping("create")
+    @PostMapping("/createRestaurant")
     @ResponseBody
     public void createRestaurant(@RequestBody Restaurant restaurant) {
         restaurantService.createRestaurant(restaurant);
@@ -41,27 +41,27 @@ public class RestaurantController {
 
 
     // Update methods
-    @PutMapping("update/{id}")
+    @PutMapping("/updateRestaurant")
     @ResponseBody
     public void updateRestaurant(
-        @PathVariable Integer id,
+        @RequestParam Integer id,
         @RequestBody Restaurant restaurant)
         {
             restaurantService.updateRestaurant(id, restaurant);
         }
 
     // Delete methods
-    @DeleteMapping("delete/{id}")
-    public void deleteRestaurant(@PathVariable Integer id){
+    @DeleteMapping("/deleteRestaurant")
+    public void deleteRestaurant(@RequestParam Integer id){
         restaurantService.deleteRestaurant(id);
     }
 
-    @DeleteMapping("deleteAll")
+    @DeleteMapping("/deleteRestaurants")
     public void deleteAll(){
         restaurantService.deleteAll();
     }
 
-    @DeleteMapping("deleteMass")
+    @DeleteMapping("/deleteMass")
     public void deleteRestaurants(@RequestBody List<Integer> restaurant_ids){
         restaurantService.deleteRestaurants(restaurant_ids);
     }

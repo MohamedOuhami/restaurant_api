@@ -44,12 +44,18 @@ public class UserController {
         String rawPassword = customer.getPassword();
         String hashedPassword = BCrypt.hashpw(rawPassword, BCrypt.gensalt());
         customer.setPassword(hashedPassword);
-        
+
         userService.createuser(customer);
     }
 
     @PostMapping("/createAdmin")
     public void createAdmin(@RequestBody Admin admin) {
+
+         // Hash a password
+        String rawPassword = admin.getPassword();
+        String hashedPassword = BCrypt.hashpw(rawPassword, BCrypt.gensalt());
+        admin.setPassword(hashedPassword);
+        
         userService.createuser(admin);
     }
 

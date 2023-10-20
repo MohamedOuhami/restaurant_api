@@ -2,6 +2,7 @@ package ma.ouhami.restaurant_api.user;
 
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findById(Integer id){
+    public User findById(Integer id) {
         return userRepository.findById(id).get();
     }
 
@@ -53,7 +54,10 @@ public class UserService {
 
         // Change the password
         if (password != null && !password.isEmpty()) {
-            user.setPassword(password);
+
+            // Hash a password;
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+            user.setPassword(hashedPassword);
         }
 
         userRepository.save(user);
@@ -62,11 +66,12 @@ public class UserService {
 
     // Delete method
 
-    public void deleteAll(){
-        userRepository.deleteAll();;
+    public void deleteAll() {
+        userRepository.deleteAll();
+        ;
     }
 
-    public void deleteByEmail(String email){
+    public void deleteByEmail(String email) {
         userRepository.deleteByEmail(email);
     }
 }
